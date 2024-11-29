@@ -5,10 +5,19 @@ import { astroContent } from '@astrojs/content';
 export default defineConfig({
   integrations: [tailwind(), astroContent()],
   content: {
-    // Define a new content collection for blogs
+    // Define collections for both Blogs and Projects
     collections: {
       blogs: {
-        type: 'content', // Indicates that it's a content collection
+        type: 'content',
+        schema: {
+          title: 'string',
+          date: 'date',
+          description: 'string',
+          author: 'string',
+        },
+      },
+      projects: {
+        type: 'content',
         schema: {
           title: 'string',
           date: 'date',
