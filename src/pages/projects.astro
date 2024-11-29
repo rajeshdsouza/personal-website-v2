@@ -1,17 +1,16 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ProjectPosts from '../components/sections/ProjectPosts.astro';
+import { getCollection } from 'astro:content';
+const projects = await getCollection('projects');
 ---
 
-<Layout title="Projects - Rajesh D'Souza">
-  <div class="max-w-6xl mx-auto px-6 py-20">
-    <h1 class="text-5xl font-bold mb-6">Projects</h1>
-    <p class="text-gray-400 text-xl mb-12 max-w-3xl">
-      This section showcases my journey in learning coding and automation. You'll find various projects ranging from simple 
-      scripts to full-stack applications, demonstrating my progress in using different tools and technologies to solve 
-      real-world problems.
-    </p>
-
-    <ProjectPosts />
-  </div>
-</Layout>
+<ul>
+  {projects.map((project) => (
+    <li key={project.slug} class="mb-8">
+      <a href={`/projects/${project.slug}`} class="text-3xl font-semibold text-green-500 hover:underline">
+        {project.data.title}
+      </a>
+      <p class="text-gray-400 mt-2">{project.data.description}</p>
+      <small class="text-gray-500">{new Date(project.data.date).toDateString()}</small>
+    </li>
+  ))}
+</ul>
